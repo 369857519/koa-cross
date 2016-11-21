@@ -8,13 +8,13 @@ app.keys = ['x132jkflsaj'];
 
 //增加跨域请求头
 app.use(cors({
-  origin:'http://qilianshan.xiaomi.com:3001',
+  origin:'http://www.static.com:3001',
   credentials:true
 }))
 
 var CONFIG = {
   key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
-  maxAge: 86400000, /** (number) maxAge in ms (default is 1 days) */
+  maxAge: 10000, /** (number) maxAge in ms (default is 1 days) */
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
   signed: true, /** (boolean) signed or not (default true) */
@@ -23,19 +23,26 @@ var CONFIG = {
 app.use(session(CONFIG, app));
 
 //增加接口
-app.use(_.get('/crossWithCookie',function *(){
+app.use(_.get('/crossLoginWithCookie',function *(){
 	console.log(this.request.query);
   var logInfo=this.request.query;
-  if(logInfo.username==="shanshanshan"&&logInfo.password==="shuishuishui"){
+  if(logInfo.username==="K"&&logInfo.password==="zhangdeshuai"){
     this.session.login=true;
     this.session.username=logInfo.username;
-    this.response.body="logginSuccess"
+    this.response.body={
+      status:'success',
+      data:this.session.username+'同志你好，欢迎回来'
+    }
   }
 }));
 
-app.use(_.get('/loginOut',function *(){
+app.use(_.get('/logOut',function *(){
   console.log(this.request.query);
   this.session.login=false;
+  this.response.body={
+    status:'toLogin',
+    data:'请登录'
+  }
 }));
 
 app.use(_.get('/getData',function *(){
@@ -43,14 +50,12 @@ app.use(_.get('/getData',function *(){
   if(this.session.login==true){
     this.response.body={
       status:'success',
-      data:{
-        username:this.session.username+'同志你好，咱们的接头信息是xxx'
-      }
+      data:this.session.username+'同志你好，欢迎回来'
     }
   }else{
     this.response.body={
       status:'please login',
-      data:null
+      data:'请登录'
     }
   }
 }));

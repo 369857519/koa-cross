@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form class="formText">
-		<div>请登陆</div>
+		<div class="status"></div>
 		<br>
 		<div>
 			用户名：<input type="text" name="username">
@@ -15,37 +15,60 @@
 		<div>
 			密码：<input type="password" name="password">
 		</div>
-		<button type="submit" class="submit">提交</button>
+		<br>
+		<button type="submit" class="submit">提交</button><button class="logout">退出</button>
 	</form>
+	<br>
 	<button type="submit" class="getUserData">
 		获取服务端用户数据
 	</button>
 	<script type="text/javascript">
+		//初始化
+		$.ajax({
+			type:'GET',
+			url: 'http://www.server.com:3000/getData',
+			xhrFields: {
+				withCredentials: true
+			},
+			success:(response)=>{
+				if(response.status==="success"){
+					$('.status').text(response.data);
+				}
+			}
+		})
+		//登陆
 		$('.submit').click((e)=>{
 			e.preventDefault();
 			$.ajax({
 				type:'GET',
-			   	url: 'http://xiangkan.xiaomi.com:3000/crossWithCookie',
+			   	url: 'http://www.server.com:3000/crossLoginWithCookie',
 			   	xhrFields: {
 			      	withCredentials: true
 			   	},
 			   	data:{
 			   		username:$('[name=username]').val(),
 			   		password:$('[name=password]').val()
+			   	},
+			   	success:(response)=>{
+			   		if(response.status==="success"){
+			   			$('.status').text(response.data);
+			   		}
 			   	}
 			});
 		})
 
-		$('.getUserData').click((e)=>{
+		$('.logout').click((e)=>{
 			e.preventDefault();
 			$.ajax({
 				type:'GET',
-				url: 'http://xiangkan.xiaomi.com:3000/getData',
+				url:'http://www.server.com:3000/logOut',
 				xhrFields: {
 					withCredentials: true
 				},
 				success:(response)=>{
-					alert(response.data.username);
+					if(response.status==="toLogin"){
+						$('.status').text(response.data);
+					}
 				}
 			})
 		})
