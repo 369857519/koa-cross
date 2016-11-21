@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>跨域cookie进行登陆验证实践</title>
+	<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<form class="formText">
+		<div>请登陆</div>
+		<br>
+		<div>
+			用户名：<input type="text" name="username">
+		</div>
+		<br>
+		<div>
+			密码：<input type="password" name="password">
+		</div>
+		<button type="submit" class="submit">提交</button>
+	</form>
+	<button type="submit" class="getUserData">
+		获取服务端用户数据
+	</button>
+	<script type="text/javascript">
+		$('.submit').click((e)=>{
+			e.preventDefault();
+			$.ajax({
+				type:'GET',
+			   	url: 'http://www.server.com:3000/crossWithCookie',
+			   	xhrFields: {
+			      	withCredentials: true
+			   	},
+			   	data:{
+			   		username:$('[name=username]').val(),
+			   		password:$('[name=password]').val()
+			   	}
+			});
+		})
+
+		$('.getUserData').click((e)=>{
+			e.preventDefault();
+			$.ajax({
+				type:'GET',
+				url: 'http://www.server.com:3000/crossWithCookie',
+				xhrFields: {
+					withCredentials: true
+				}
+			})
+		})
+	</script>
+</body>
+</html>
