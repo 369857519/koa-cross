@@ -33,6 +33,11 @@ app.use(_.get('/crossWithCookie',function *(){
   }
 }));
 
+app.use(_.get('/loginOut',function *(){
+  console.log(this.request.query);
+  this.session.login=false;
+}));
+
 app.use(_.get('/getData',function *(){
   console.log(this.session);
   if(this.session.login==true){
