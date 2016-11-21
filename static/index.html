@@ -25,7 +25,7 @@
 			e.preventDefault();
 			$.ajax({
 				type:'GET',
-			   	url: 'http://www.server.com:3000/crossWithCookie',
+			   	url: 'http://xiangkan.xiaomi.com:3000/crossWithCookie',
 			   	xhrFields: {
 			      	withCredentials: true
 			   	},
@@ -40,9 +40,12 @@
 			e.preventDefault();
 			$.ajax({
 				type:'GET',
-				url: 'http://www.server.com:3000/crossWithCookie',
+				url: 'http://xiangkan.xiaomi.com:3000/getData',
 				xhrFields: {
 					withCredentials: true
+				},
+				success:(response)=>{
+					alert(response.data.username);
 				}
 			})
 		})
