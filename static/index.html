@@ -5,8 +5,8 @@
 	<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
 </head>
 <body>
-	<form class="formText">
-		<div class="status"></div>
+	<div class="status"></div>
+	<div class="formText">
 		<br>
 		<div>
 			用户名：<input type="text" name="username">
@@ -16,12 +16,9 @@
 			密码：<input type="password" name="password">
 		</div>
 		<br>
-		<button type="submit" class="submit">提交</button><button class="logout">退出</button>
-	</form>
-	<br>
-	<button type="submit" class="getUserData">
-		获取服务端用户数据
-	</button>
+		<button type="submit" class="submit">提交</button>
+	</div>
+	<button class="logout">退出</button>
 	<script type="text/javascript">
 		//初始化
 		$.ajax({
@@ -33,6 +30,9 @@
 			success:(response)=>{
 				if(response.status==="success"){
 					$('.status').text(response.data);
+					$('.formText').hide();
+				}else{
+					$('.formText').show();
 				}
 			}
 		})
@@ -52,6 +52,9 @@
 			   	success:(response)=>{
 			   		if(response.status==="success"){
 			   			$('.status').text(response.data);
+			   			$('.formText').hide();
+			   		}else{
+			   			$('.formText').show();
 			   		}
 			   	}
 			});
@@ -68,6 +71,7 @@
 				success:(response)=>{
 					if(response.status==="toLogin"){
 						$('.status').text(response.data);
+						$('.formText').show();
 					}
 				}
 			})
