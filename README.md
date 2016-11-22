@@ -30,16 +30,16 @@ koa cross 简易教程
     
 先期概念整理：
 
-  http
+  - http
 
-  cross-origin
+  - cross-origin
 
-  session,cookie
+  - session,cookie
 
-  前后端分离,SPA
+  - 前后端分离,SPA
 
-  静态服务与接口
+  - 静态服务与接口
 
-  koa,generator,箭头函数
+  - koa,generator,箭头函数
 
       
