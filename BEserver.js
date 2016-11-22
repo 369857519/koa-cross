@@ -14,7 +14,7 @@ app.use(cors({
 
 var CONFIG = {
   key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
-  maxAge: 20000, /** (number) maxAge in ms (default is 1 days) */
+  maxAge: 5000, /** (number) maxAge in ms (default is 1 days) */
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
   signed: true, /** (boolean) signed or not (default true) */
@@ -31,7 +31,12 @@ app.use(_.get('/crossLoginWithCookie',function *(){
     this.session.username=logInfo.username;
     this.response.body={
       status:'success',
-      data:this.session.username+'同志你好，欢迎回来'
+      data:this.session.username+'` 你好，欢迎回来'
+    }
+  }else{
+    this.response.body={
+      status:'fail',
+      data:'请输入正确的用户名密码'
     }
   }
 }));
