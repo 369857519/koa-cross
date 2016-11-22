@@ -40,6 +40,6 @@ koa cross 简易教程
 
   静态服务与接口
 
-  koa,generator,尖头函数
-  
+  koa,generator,箭头函数
+
       
