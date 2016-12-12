@@ -21,7 +21,7 @@ app.keys = ['dagedage'];
 
 //增加跨域请求头
 app.use(cors({
-  origin:'http://10.232.56.17:3000',
+  origin:'http://10.232.56.17:3002',
   credentials:true
 }))
 //session控制
@@ -72,7 +72,7 @@ app.use(_.post('/video/findByCondition.do',function *(){
 	var query=JSON.parse(this.request.body.data);
 	//获取总数信息
 	console.log('select count(*) from video where state=? and id not in '+notInQuery)
-	var totalCount=yield pool.query('select count(*) from video where state=? and id not in '+notInQuery,[query.state]);
+	var totalCount=yield pool.query('select count(*) from video where state=? and video_length<300 and id not in '+notInQuery,[query.state]);
 
 
 	//分页信息计算pageSize pageNum,然后获取数据
@@ -86,7 +86,7 @@ app.use(_.post('/video/findByCondition.do',function *(){
 	}
 	var start=pageSize*(pageNum-1);
 	//
-	var rows=yield pool.query('select * from video where state=? and id not in '+notInQuery+' limit ?,?',[query.state,start,pageSize]);
+	var rows=yield pool.query('select * from video where state=? and id not in '+notInQuery+' and video_length<300 limit ?,?',[query.state,start,pageSize]);
 	rows.map((value,index)=>{
 		// /[.]data\/(.*)/.exec(value.video_file_url)[1]
 		value.videourl='http://10.232.56.11:32771/'+/[.]\/data\/(.*)/.exec(value.video_file_url)[1];
